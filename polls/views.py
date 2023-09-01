@@ -2,23 +2,24 @@
 from django.shortcuts import render
 from .models import maktab, xonalar
 from django.http import JsonResponse
+from .serializer import maktabSerializer, xonalarSerializer
 
 # Create your views here.
 
 def all(request):
-    obshi=maktab.objects.all()
-    allitem =[]
-    for i in obshi:
-        allitem.append({
-            'name':i.name,
-            'oquvchilar_soni':i.oquvchilar_soni
-        })
-    return JsonResponse(allitem, safe=False)
+    all=maktab.objects.all()
+    result=maktabSerializer(all, many=True)
+    # for i in obshi:
+    #     allitem.append({
+    #         'name':i.name,
+    #         'oquvchilar_soni':i.oquvchilar_soni
+    #     })
+    return JsonResponse(result.data, safe=False)
     
 
 
 def detail(request, shuid):
-    each = xonalar.objects.get(id=shuid)
-    data={'Xona nomi':each.xonanomi, 'nechi kishiligi':each.nechikishiligi}
-    return JsonResponse(data, safe=False)
+    some = xonalar.objects.filter(id=myid)
+    forgett = xonalarSerializer(some, many=True)
+    return JsonResponse(forgett, safe=False)
         
