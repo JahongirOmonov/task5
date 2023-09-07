@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import all, detail
+from .views import getmaktab, psotmaktab, detail
 
 urlpatterns=[
-    path('all/', all),
-    path('detail/<int:shuid>', detail)
+    path('all/', getmaktab.as_view()),
+    path('detail/<int:shuid>', detail),
+    path('create/>', psotmaktab.as_view())
 ]
