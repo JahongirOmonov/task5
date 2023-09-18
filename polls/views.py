@@ -6,6 +6,7 @@ from .serializer import maktabSerializer, xonalarSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -27,6 +28,11 @@ from rest_framework import generics
 class GetAllMaktab(generics.ListAPIView):
     queryset=maktab.objects.all()
     serializer_class=maktabSerializer
+    permission_classes=(IsAuthenticated,)
+
+    def get_queryset(self):
+        print(self.request.user)
+        return maktab.objects.all()
 
 class GetDetailMaktab(generics.RetrieveAPIView):
     queryset = maktab.objects.all()
@@ -81,6 +87,11 @@ class AllFunctionMaktab(generics.RetrieveUpdateDestroyAPIView):
 class GetAllXonalar(generics.ListAPIView):
     queryset=xonalar.objects.all()
     serializer_class=xonalarSerializer
+    permission_classes=(IsAuthenticated,)
+
+    def get_queryset(self):
+        print(self.request.user)
+        return xonalar.objects.all()
 
 class GetDetailXonalar(generics.RetrieveAPIView):
     queryset = xonalar.objects.all()
